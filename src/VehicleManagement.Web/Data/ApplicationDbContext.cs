@@ -60,7 +60,7 @@ new Manufacturer { Id = 5, Name = "Toyota" }
                 Name = "Light",
                 MinWeight = 0m,
                 MaxWeight = 500m,
-                Icon = "car-light"
+                Icon = "bi-car-front-fill"
             },
             new VehicleCategory
             {
@@ -68,7 +68,7 @@ new Manufacturer { Id = 5, Name = "Toyota" }
                 Name = "Medium",
                 MinWeight = 500m,
                 MaxWeight = 2500m,
-                Icon = "car-medium"
+                Icon = "bi-taxi-front-fill"
             },
             new VehicleCategory
             {
@@ -76,7 +76,7 @@ new Manufacturer { Id = 5, Name = "Toyota" }
                 Name = "Heavy",
                 MinWeight = 2500m,
                 MaxWeight = null,
-                Icon = "truck"
+                Icon = "bi-truck-front-fill"
             }
         );
     }

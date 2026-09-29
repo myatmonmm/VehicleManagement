@@ -10,22 +10,19 @@ public class Vehicle
     [MaxLength(100)]
     public string OwnerName { get; set; } = string.Empty;
 
-    [Required]
     public int ManufacturerId { get; set; }
 
     public Manufacturer? Manufacturer { get; set; }
 
-    [Required]
     [CustomValidation(typeof(Vehicle), nameof(ValidateYear))]
     public int YearOfManufacture { get; set; }
 
-    [Required]
     [CustomValidation(typeof(Vehicle), nameof(ValidateWeight))]
     public decimal WeightKg { get; set; }
 
     public static ValidationResult? ValidateYear(
-     int year,
-     ValidationContext context)
+        int year,
+        ValidationContext context)
     {
         var maximumYear = DateTime.UtcNow.Year + 1;
 
@@ -37,8 +34,8 @@ public class Vehicle
     }
 
     public static ValidationResult? ValidateWeight(
-      decimal weight,
-      ValidationContext context)
+        decimal weight,
+        ValidationContext context)
     {
         if (weight <= 0)
         {
