@@ -1,0 +1,53 @@
+@model VehicleManagement.Web.Models.Vehicle
+
+@{
+    ViewData["Title"] = "Add Vehicle";
+}
+
+<h1>Add Vehicle</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="OwnerName" class="form-label">Owner Name</label>
+                <input asp-for="OwnerName" class="form-control" />
+                <span asp-validation-for="OwnerName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ManufacturerId" class="form-label">Manufacturer</label>
+                <select asp-for="ManufacturerId" class="form-select">
+                    <option value="">Select manufacturer</option>
+
+                    @foreach (var manufacturer in ViewBag.Manufacturers)
+                    {
+                        <option value="@manufacturer.Id">@manufacturer.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="ManufacturerId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="YearOfManufacture" class="form-label">Year of Manufacture</label>
+                <input asp-for="YearOfManufacture" class="form-control" />
+                <span asp-validation-for="YearOfManufacture" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="WeightKg" class="form-label">Weight (kg)</label>
+                <input asp-for="WeightKg" class="form-control" step="0.01" />
+                <span asp-validation-for="WeightKg" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -18,4 +18,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\VehicleManagement.Web\VehicleManagement.Web.csproj" />
+  </ItemGroup>
+
 </Project>

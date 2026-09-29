@@ -1,0 +1,82 @@
+@model IEnumerable<VehicleManagement.Web.Models.VehicleCategory>
+
+@{
+    ViewData["Title"] = "Vehicle Categories";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1>Vehicle Categories</h1>
+        <p class="text-muted mb-0">
+            Categories are automatically assigned to vehicles based on weight.
+        </p>
+    </div>
+
+    <a asp-action="Create" class="btn btn-primary">Add Category</a>
+</div>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+<table class="table table-striped align-middle">
+    <thead>
+        <tr>
+            <th>Icon</th>
+            <th>Name</th>
+            <th>Weight Range (kg)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>
+                    <i class="bi @category.Icon fs-4" title="@category.Name"></i>
+                </td>
+
+                <td>@category.Name</td>
+
+                <td>
+                    @if (category.MaxWeight.HasValue)
+                    {
+                        <span>
+                            @category.MinWeight.ToString("0.##")
+                            –
+                            @category.MaxWeight.Value.ToString("0.##")
+                        </span>
+                    }
+                    else
+                    {
+                        <span>
+                            @category.MinWeight.ToString("0.##")+
+                        </span>
+                    }
+                </td>
+
+                <td class="text-end">
+                    <a asp-action="Edit" asp-route-id="@category.Id" class="btn btn-sm btn-outline-primary">
+                        Edit
+                    </a>
+
+                    <form asp-action="Delete" asp-route-id="@category.Id" method="post" class="d-inline"
+                          onsubmit="return confirm('Delete this category? Its weight range will be merged with an adjacent category.');">
+
+                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="alert alert-light border mt-4">
+    <strong>Boundary rule:</strong>
+    minimum weight is included and maximum weight is excluded.
+    For example, 500 kg belongs to the category starting at 500 kg.
+</div>

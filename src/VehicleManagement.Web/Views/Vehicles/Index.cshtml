@@ -1,0 +1,101 @@
+@model IEnumerable<VehicleManagement.Web.Models.VehicleListItemViewModel>
+
+@{
+    ViewData["Title"] = "Vehicles";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Vehicles</h1>
+    <a asp-action="Create" class="btn btn-primary">Add Vehicle</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        No vehicles have been added yet.
+    </div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-action="Index" asp-route-sortBy="owner"
+                       asp-route-direction="@(ViewBag.SortBy == "owner" && ViewBag.Direction == "asc" ? "desc" : "asc")">
+                        Owner
+                        @if (ViewBag.SortBy == "owner")
+                        {
+                            <span>@(ViewBag.Direction == "asc" ? "↑" : "↓")</span>
+                        }
+                    </a>
+                </th>
+
+                <th>
+                    <a asp-action="Index" asp-route-sortBy="manufacturer"
+                       asp-route-direction="@(ViewBag.SortBy == "manufacturer" && ViewBag.Direction == "asc" ? "desc" : "asc")">
+                        Manufacturer
+                        @if (ViewBag.SortBy == "manufacturer")
+                        {
+                            <span>@(ViewBag.Direction == "asc" ? "↑" : "↓")</span>
+                        }
+                    </a>
+                </th>
+
+                <th>
+                    <a asp-action="Index" asp-route-sortBy="year"
+                       asp-route-direction="@(ViewBag.SortBy == "year" && ViewBag.Direction == "asc" ? "desc" : "asc")">
+                        Year
+                        @if (ViewBag.SortBy == "year")
+                        {
+                            <span>@(ViewBag.Direction == "asc" ? "↑" : "↓")</span>
+                        }
+                    </a>
+                </th>
+
+                <th>
+                    <a asp-action="Index" asp-route-sortBy="weight"
+                       asp-route-direction="@(ViewBag.SortBy == "weight" && ViewBag.Direction == "asc" ? "desc" : "asc")">
+                        Weight (kg)
+                        @if (ViewBag.SortBy == "weight")
+                        {
+                            <span>@(ViewBag.Direction == "asc" ? "↑" : "↓")</span>
+                        }
+                    </a>
+                </th>
+
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Vehicle.OwnerName</td>
+                    <td>@item.Vehicle.Manufacturer?.Name</td>
+                    <td>@item.Vehicle.YearOfManufacture</td>
+                    <td>@item.Vehicle.WeightKg.ToString("0.##")</td>
+                    <td>
+                        <i class="bi @item.Category.Icon fs-5 me-2"></i>
+                        @item.Category.Name
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Vehicle.Id" class="btn btn-sm btn-outline-primary">
+                            Edit
+                        </a>
+
+                        <form asp-action="Delete" asp-route-id="@item.Vehicle.Id" method="post" class="d-inline"
+                              onsubmit="return confirm('Are you sure you want to delete this vehicle?');">
+
+                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

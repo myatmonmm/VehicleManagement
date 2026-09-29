@@ -1,0 +1,60 @@
+@model VehicleManagement.Web.Models.VehicleCategory
+
+@{
+    ViewData["Title"] = "Add Category";
+}
+
+<h1>Add Category</h1>
+
+<p class="text-muted">
+    Enter the starting weight for the new category.
+    The existing range will be split automatically.
+</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MinWeight" class="form-label">Starts At (kg)</label>
+
+                <input asp-for="MinWeight" class="form-control" step="0.01" />
+
+                <span asp-validation-for="MinWeight" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Icon" class="form-label"></label>
+
+                <select asp-for="Icon" class="form-select">
+                    <option value="">Select an icon</option>
+                    <option value="bi-car-front-fill">Car</option>
+                    <option value="bi-taxi-front-fill">Taxi</option>
+                    <option value="bi-truck-front-fill">Truck</option>
+                    <option value="bi-bus-front-fill">Bus</option>
+                </select>
+
+                <span asp-validation-for="Icon" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Add Category
+            </button>
+
+            <a asp-action="Index" class="btn btn-secondary">
+                Cancel
+            </a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
